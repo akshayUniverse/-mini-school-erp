@@ -2,6 +2,12 @@
 
 A compact school administration app for managing teachers, classes, students, and daily attendance. Administrators manage school data; teachers can view it and mark attendance only for their own classes.
 
+## Live demo
+
+- App: https://mini-school-erp-puce.vercel.app
+- Backend: Render free tier, so the first request after inactivity can take ~50 seconds to wake up.
+- Login with the demo credentials below.
+
 ## Tech stack
 
 - **Node.js + Express 5** — small JSON API with straightforward middleware and routing.
@@ -99,6 +105,12 @@ Errors use appropriate `400`, `401`, `403`, `404`, or `409` status codes and a J
 - The client stores only the token and safe user profile in local storage; the API never sends password hashes.
 - Teacher access is checked both in the UI and on the server. The server is authoritative.
 
+
+## Deployment
+
+- **Backend (Render):** root directory `server`, build `npm install`, start `npm start`. Env vars: `MONGODB_URI` (MongoDB Atlas), `JWT_SECRET`, `CLIENT_ORIGIN` (the frontend URL, used for CORS).
+- **Frontend (Vercel):** root directory `client`, framework Vite. Env var: `VITE_API_URL` = `<backend-url>/api`. A `vercel.json` rewrite sends all routes to `index.html` so page refreshes work.
+
 ## Skipped / would improve with more time
 
 - Automated backend and frontend tests, including authorization and date-boundary coverage.
@@ -108,24 +120,3 @@ Errors use appropriate `400`, `401`, `403`, `404`, or `409` status codes and a J
 - Soft deletes and audit history for administrative changes.
 - Student/parent roles and a parent-facing portal.
 - Production deployment configuration, monitoring, and CI.
-
-## Exact terminal commands
-
-After creating these files and setting up MongoDB:
-
-```powershell
-cd server
-npm install
-Copy-Item .env.example .env
-npm run seed
-npm run dev
-```
-
-Then in a separate terminal:
-
-```powershell
-cd client
-npm install
-Copy-Item .env.example .env
-npm run dev
-```
